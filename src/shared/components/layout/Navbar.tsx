@@ -2,48 +2,59 @@ import {
   AppBar,
   Box,
   Button,
-  IconButton,
+  Container,
   Toolbar,
   Typography,
 } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { RoutesConfig } from "../../../configs/routes";
 
-import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+const pages = ["Animals"];
 
 const Navbar = () => {
-  const [auth, setAuth] = useState(true);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: "flex",
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              Animals Farm
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: "flex" }}>
+              {pages.map((page) => (
+                <NavLink
+                  key={page}
+                  to={RoutesConfig.ANIMALS}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {page}
+                  </Button>
+                </NavLink>
+              ))}
+            </Box>
+          </Toolbar>
+        </Container>
       </AppBar>
     </Box>
   );
